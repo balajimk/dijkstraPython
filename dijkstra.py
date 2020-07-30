@@ -7,7 +7,7 @@ class Vertex(object):
         self.calculatedDistance = 0
         self.previousVertex = ''
         self.nextVertex = ''
-
+        self.visited = False
 
 class Edge(object):
     def __init__(self, v1, v2, distance):
@@ -23,35 +23,32 @@ Edges = []
 def calculateShortestPath(startVertex, endVertex):
     vertices = Enumerable(Vertices)
     edges = Enumerable(Edges)
-    unvisitedVertices = Enumerable(Vertices)
+    unvisitedVertices = vertices.where(lambda v: v.visited == False)
     currentVertex = None
-    while unvisitedVertices != None and len(unvisitedVertices) > 1:
+    while unvisitedVertices.count() > 0:
         if (currentVertex == None):
-            currentVertex = unvisitedVertices.where(lambda v: v.name == startVertex)[0]
+            currentVertex = vertices.where(lambda v: v.name == startVertex)[0]
         else:
-            currentVertex = unvisitedVertices.where(lambda v: v.calculatedDistance > 0).order_by(lambda v: v.calculatedDistance)[0]
-        
-        if (currentVertex.calculatedDistance == None):
-            currentVertex.calculatedDistance = 0
-
-        unvisitedVertices = unvisitedVertices.where(lambda v: v.name != currentVertex.name)
+            currentVertex = vertices.where(lambda v: v.calculatedDistance > 0 and v.visited == False).order_by(lambda v: v.calculatedDistance)[0]
+        currentVertex.visited = True
+        unvisitedVertices = vertices.where(lambda v: v.visited == False)
         
         connectingEdges = edges.where(lambda e : e.v1 == currentVertex.name or e.v2 == currentVertex.name and e.used == False)
-
         for currentEdge in connectingEdges:
             currentNeighborName = ''
             if (currentEdge.v1 == currentVertex.name):
                 currentNeighborName = currentEdge.v2
             else:
                 currentNeighborName = currentEdge.v1
+
             currentNeighbor = vertices.where(lambda v: v.name == currentNeighborName)[0]
+
             tempDistance = 0
             tempDistance = currentVertex.calculatedDistance + currentEdge.distance
             if (currentNeighbor.calculatedDistance == 0 or tempDistance < currentNeighbor.calculatedDistance):
                 currentNeighbor.calculatedDistance = tempDistance
                 currentNeighbor.previousVertex = currentVertex.name
-            else:
-                pass
+
             currentEdge.used = True
         # for loop ends here
     # while loop ends here
