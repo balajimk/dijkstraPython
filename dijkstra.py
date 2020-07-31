@@ -33,14 +33,13 @@ def calculateShortestPath(startVertex, endVertex):
         currentVertex.visited = True
         unvisitedVertices = vertices.where(lambda v: v.visited == False)
         
-        connectingEdges = edges.where(lambda e : e.v1 == currentVertex.name or e.v2 == currentVertex.name and e.used == False)
+        connectingEdges = edges.where(lambda e: (e.v1 == currentVertex.name or e.v2 == currentVertex.name) and e.used == False)
         for currentEdge in connectingEdges:
             currentNeighborName = ''
             if (currentEdge.v1 == currentVertex.name):
                 currentNeighborName = currentEdge.v2
             else:
                 currentNeighborName = currentEdge.v1
-
             currentNeighbor = vertices.where(lambda v: v.name == currentNeighborName)[0]
 
             tempDistance = 0
