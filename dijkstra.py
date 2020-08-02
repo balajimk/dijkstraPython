@@ -17,21 +17,17 @@ class Edge(object):
         self.distance = distance
         self.used = False
 
-Vertices = []
-Edges = []
-
-def calculateShortestPath(startVertex, endVertex):
-    vertices = Enumerable(Vertices)
-    edges = Enumerable(Edges)
-    unvisitedVertices = vertices.where(lambda v: v.visited == False)
+def calculateShortestPath(verticesList, edgesList, startVertex, endVertex):
+    vertices = Enumerable(verticesList)
+    edges = Enumerable(edgesList)
+    unvisitedVerticesCount = vertices.where(lambda v: v.visited == False).count()
     currentVertex = None
-    while unvisitedVertices.count() > 0:
+
+    while unvisitedVerticesCount > 0:
         if (currentVertex == None):
             currentVertex = vertices.where(lambda v: v.name == startVertex)[0]
         else:
             currentVertex = vertices.where(lambda v: v.calculatedDistance > 0 and v.visited == False).order_by(lambda v: v.calculatedDistance)[0]
-        currentVertex.visited = True
-        unvisitedVertices = vertices.where(lambda v: v.visited == False)
         
         connectingEdges = edges.where(lambda e: (e.v1 == currentVertex.name or e.v2 == currentVertex.name) and e.used == False)
         for currentEdge in connectingEdges:
@@ -47,9 +43,11 @@ def calculateShortestPath(startVertex, endVertex):
             if (currentNeighbor.calculatedDistance == 0 or tempDistance < currentNeighbor.calculatedDistance):
                 currentNeighbor.calculatedDistance = tempDistance
                 currentNeighbor.previousVertex = currentVertex.name
-
+            
             currentEdge.used = True
         # for loop ends here
+        currentVertex.visited = True
+        unvisitedVerticesCount = vertices.where(lambda v: v.visited == False).count()
     # while loop ends here
 
     # set next values for forward traversing
