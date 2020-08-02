@@ -9,7 +9,10 @@ You can learn the Dijkstra's algorithm from https://www.youtube.com/watch?v=pVfj
 - Instead of visited & unvisited vertices list, I have used visited flag in the Vertex class.
 - Using used flag on Edge class to be sure that the edge has been used to calculate the distance already though this is not mandatory.
 
-## How to run the code
+## How to execute the code online
+Browse https://repl.it/@BalajiMKala/dijkstraPython and click Run button.
+
+## How to run the code locally
 Clone or download the code from this repository.
 Open the folder in Visual Studio code or your preferred text editor.
 Install py-linq by running the command in the prompt / terminal"
