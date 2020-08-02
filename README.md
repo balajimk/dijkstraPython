@@ -12,6 +12,6 @@ Clone or download the code from this repository.
 Open the folder in Visual Studio code or your preferred text editor.
 Install py-linq by running the command in the prompt / terminal"
 > pip install py-linq
-Run the {full path to  python}/python.exe {full path to the folder}/dijkstraClient.py
+> {full path to  python}/python.exe {full path to the folder}/dijkstraClient.py
 
 This is my first try with Python and so, bear with the issues :)
