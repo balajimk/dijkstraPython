@@ -25,3 +25,4 @@ This is my first try with Python and so, bear with the issues :)
 
 ## Nice to have changes
 - List of vertices should be generated from the edgesList provided.
+- Cases like, circular dependencies, & directional edges.
