@@ -22,3 +22,6 @@ and to execute the code:
 > {full path to  python}/python.exe {full path to the folder}/dijkstraClient.py
 
 This is my first try with Python and so, bear with the issues :)
+
+## Nice to have changes
+- List of vertices should be generated from the edgesList provided.
